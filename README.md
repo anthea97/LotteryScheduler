@@ -18,4 +18,4 @@ Implementing a lottery scheduler for xv6.
   - Routine should return 0 if successful, and -1 otherwise (if, for example, a bad or NULL pointer is passed into the kernel).
   
 * Make a graph:
-  - Show the number of time slices a set of three processes receives over time, where the processes have a 3:2:1 ration of tickets.
+  - Show the number of time slices a set of three processes receives over time, where the processes have a 3:2:1 ratio of tickets.
