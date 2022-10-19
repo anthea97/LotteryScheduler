@@ -19,3 +19,8 @@ Implementing a lottery scheduler for xv6.
   
 * Make a graph:
   - Show the number of time slices a set of three processes receives over time, where the processes have a 3:2:1 ratio of tickets.
+
+# Files Modified
+* proc.h
+* proc.c
+* defs.h

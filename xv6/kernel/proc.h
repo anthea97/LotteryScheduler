@@ -74,6 +74,11 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+  /* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+  ** num_tickets added in proc structure to keep track of how many tickets a process has
+  */
+  int  num_tickets;            // Number of tickets for this process
+  /* End of code added */
 };
 
 // Process memory is laid out contiguously, low addresses first:
