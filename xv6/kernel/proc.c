@@ -156,6 +156,11 @@ fork(void)
   pid = np->pid;
   np->state = RUNNABLE;
   safestrcpy(np->name, proc->name, sizeof(proc->name));
+  /* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+  ** 
+  */
+  int  num_tickets;            // Number of tickets for this process
+  /* End of code added */
   return pid;
 }
 
@@ -442,19 +447,3 @@ procdump(void)
     cprintf("\n");
   }
 }
-
-/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
-  ** settickets()
-  ** Returns number of tickets allocated to the process
-  ** Takes change as argument:
-      * If change = 1, increment the number of tickets allocated to the process
-      * If change = 0, decrement the number of tickets allocated to the process
-      * If change = -1, process has no tickets. Assign tickets to the process.
-*/
-int 
-settickets(int change){
-
-} 
-  /* End of code added */
-
-

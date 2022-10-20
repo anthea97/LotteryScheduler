@@ -88,3 +88,39 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+  ** settickets()
+  ** Allocates tickets to the process
+  ** Returns 0 if tickets successfully allocated
+  ** Returns -1 otherwise
+*/
+int 
+sys_settickets(int ptickets){
+
+} 
+
+/* 
+  ** getpinfo()
+  **  
+  ** Returns 0 if successful, -1 otherwise
+*/
+int
+sys_getpinfo(struct pstat*){
+
+  struct proc *p;
+
+  acquire(&ptable.lock);
+
+  for(int i = 0; i < NPROC; i++){
+    //if process is unused
+      //Set pids[i]
+      //Set ticks[i]
+      //Set tickets[i]
+    }
+  }
+
+
+/* End of code added */
+
+

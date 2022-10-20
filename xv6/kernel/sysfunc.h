@@ -23,5 +23,12 @@ int sys_unlink(void);
 int sys_wait(void);
 int sys_write(void);
 int sys_uptime(void);
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+** settickets system call
+** getpinfo system call
+*/
+int sys_settickets(int ptickets);
+int sys_getpinfo(struct pstat*);
 
+/* End of code added */
 #endif // _SYSFUNC_H_

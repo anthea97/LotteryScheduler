@@ -75,11 +75,24 @@ struct proc {
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
   /* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
-  ** num_tickets added in proc structure to keep track of how many tickets a process has
+  ** num_tickets - to keep track of how many tickets a process has
+  ** num_ticks - 
   */
-  int  num_tickets;            // Number of tickets for this process
+  int num_tickets;            // Number of tickets for this process
+  int num_ticks;              // Number of times the process has been scheduled since creation
   /* End of code added */
 };
+
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+** pstat structure
+*/
+struct pstat {
+int inuse[NPROC]; // whether this slot of the process table is in use (1 or 0) int tickets[NPROC]; // the number of tickets this process has
+int pid[NPROC]; // the PID of each process
+int ticks[NPROC]; // the number of ticks each process has accumulated
+};
+/* End of code added */
+
 
 // Process memory is laid out contiguously, low addresses first:
 //   text
