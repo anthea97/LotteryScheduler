@@ -27,8 +27,8 @@ int sys_uptime(void);
 ** settickets system call
 ** getpinfo system call
 */
-int sys_settickets(int ptickets);
-int sys_getpinfo(struct pstat*);
+int sys_settickets(void);
+int sys_getpinfo(void);
 
 /* End of code added */
 #endif // _SYSFUNC_H_

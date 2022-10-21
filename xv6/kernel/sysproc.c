@@ -96,7 +96,7 @@ sys_uptime(void)
   ** Returns -1 otherwise
 */
 int 
-sys_settickets(int ptickets){
+sys_settickets(void){
 
 } 
 
@@ -106,7 +106,7 @@ sys_settickets(int ptickets){
   ** Returns 0 if successful, -1 otherwise
 */
 int
-sys_getpinfo(struct pstat*){
+sys_getpinfo(void){
 
   struct proc *p;
 
