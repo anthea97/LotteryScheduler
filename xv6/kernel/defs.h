@@ -1,5 +1,11 @@
 #ifndef _DEFS_H_
 #define _DEFS_H_
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+** Random Number Generator
+*/
+#define RANDOM_MAX ((1u << 31u) - 1u)
+static unsigned random_seed = 1;
+/* End of code added */
 
 struct buf;
 struct context;
@@ -109,6 +115,13 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran) 
+** Random Number Generator */
+unsigned        lcg_parkmiller(unsigned *state);
+unsigned        next_random();
+/* End of Code Added */
+
+
 
 // swtch.S
 void            swtch(struct context**, struct context*);
@@ -171,5 +184,6 @@ int             copyout(pde_t*, uint, void*, uint);
 
 // number of elements in fixed-size array
 #define NELEM(x) (sizeof(x)/sizeof((x)[0]))
+
 
 #endif // _DEFS_H_
