@@ -73,6 +73,14 @@ found:
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
 
+  /* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+  ** initialize num_tickets
+  ** initialize num_ticks
+  */
+  p->num_tickets = 1;
+  p->num_ticks = 0;
+  /* End of code added */
+
   return p;
 }
 
@@ -162,9 +170,9 @@ fork(void)
   np->state = RUNNABLE;
   safestrcpy(np->name, proc->name, sizeof(proc->name));
   /* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
-  ** 
+  ** Copy parent tickets to child
   */
-  int  num_tickets;            // Number of tickets for this process
+  np->num_tickets = proc->num_tickets;
   /* End of code added */
   return pid;
 }
@@ -312,6 +320,14 @@ sched(void)
     panic("sched interruptible");
   intena = cpu->intena;
   swtch(&proc->context, cpu->scheduler);
+
+  /* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+  ** initialize num_tickets
+  ** initialize num_ticks
+  */
+  proc->num_ticks += 1;
+  /* End of code added */
+
   cpu->intena = intena;
 }
 
