@@ -5,7 +5,7 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
-/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
 ** pstat header file include
 */
 #include "pstat.h"
@@ -73,7 +73,7 @@ found:
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
 
-  /* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+  /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
   ** initialize num_tickets
   ** initialize num_ticks
   */
@@ -169,7 +169,7 @@ fork(void)
   pid = np->pid;
   np->state = RUNNABLE;
   safestrcpy(np->name, proc->name, sizeof(proc->name));
-  /* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+  /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
   ** Copy parent tickets to child
   */
   np->num_tickets = proc->num_tickets;
@@ -321,7 +321,7 @@ sched(void)
   intena = cpu->intena;
   swtch(&proc->context, cpu->scheduler);
 
-  /* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+  /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
   ** initialize num_tickets
   ** initialize num_ticks
   */
@@ -469,7 +469,7 @@ procdump(void)
   }
 }
 
-/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran) */
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran) */
 
 /* 
 ** getpinfo()

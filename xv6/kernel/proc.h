@@ -74,7 +74,7 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
-  /* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+  /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
   ** num_tickets - to keep track of how many tickets a process has
   ** num_ticks - 
   */

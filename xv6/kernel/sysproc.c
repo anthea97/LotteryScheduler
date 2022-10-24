@@ -89,7 +89,7 @@ sys_uptime(void)
   return xticks;
 }
 
-/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
   ** settickets()
   ** Allocates tickets to the process
   ** Returns 0 if tickets successfully allocated

@@ -23,7 +23,7 @@ int sys_unlink(void);
 int sys_wait(void);
 int sys_write(void);
 int sys_uptime(void);
-/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
 ** settickets system call
 ** getpinfo system call
 */

@@ -1,6 +1,6 @@
 #ifndef _DEFS_H_
 #define _DEFS_H_
-/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
 ** Random Number Generator
 */
 #define RANDOM_MAX ((1u << 31u) - 1u)
@@ -115,7 +115,7 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
-/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran) 
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
 ** Random Number Generator */
 unsigned        lcg_parkmiller(unsigned *state);
 unsigned        next_random();

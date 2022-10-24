@@ -1,4 +1,4 @@
-/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
 ** pstat structure
 */
 #ifndef _PSTAT_H_
