@@ -3,7 +3,7 @@
 /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
 ** Random Number Generator
 */
-#define RANDOM_MAX ((1u << 31u) - 1u)
+#define MAX_TICKETS 1000000
 static unsigned random_seed = 1;
 /* End of code added */
 

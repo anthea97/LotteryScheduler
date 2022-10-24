@@ -99,7 +99,10 @@ int
 sys_settickets(void){
   int tickets;
 
-  if(argint(0, &tickets) < 1)
+  if(argint(0, &tickets) < 0)
+    return -1;
+
+  if(tickets < 1 || tickets > MAX_TICKETS)
     return -1;
 
   proc->num_tickets = tickets;
