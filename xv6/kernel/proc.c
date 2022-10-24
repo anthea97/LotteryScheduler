@@ -319,15 +319,14 @@ sched(void)
   if(readeflags()&FL_IF)
     panic("sched interruptible");
   intena = cpu->intena;
-  swtch(&proc->context, cpu->scheduler);
 
   /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
-  ** initialize num_tickets
-  ** initialize num_ticks
+  ** num_ticks incremented each time slice
   */
   proc->num_ticks += 1;
   /* End of code added */
 
+  swtch(&proc->context, cpu->scheduler);
   cpu->intena = intena;
 }
 
