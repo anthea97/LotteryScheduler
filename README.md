@@ -24,3 +24,8 @@ Implementing a lottery scheduler for xv6.
 * proc.h
 * proc.c
 * defs.h
+* sysproc.c
+* usys.S
+* syscall.h
+* syscall.c
+* sysfunc.h
