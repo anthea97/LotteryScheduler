@@ -97,8 +97,14 @@ sys_uptime(void)
 */
 int 
 sys_settickets(void){
+  int tickets;
 
-} 
+  if(argint(0, &tickets) < 1)
+    return -1;
+
+  proc->num_tickets = tickets;
+  return 0;
+}
 
 /* 
   ** getpinfo()
