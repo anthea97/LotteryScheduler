@@ -1,6 +1,8 @@
 #ifndef _USER_H_
 #define _USER_H_
 
+#include "pstat.h"
+
 struct stat;
 
 // system calls
@@ -30,7 +32,7 @@ int uptime(void);
 ** getpinfo system call
 */
 int settickets(int);
-int getpinfo(struct pstat*);
+int getpinfo(struct pstat *);
 
 /* End of code added */
 

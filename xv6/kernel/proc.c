@@ -5,6 +5,11 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(PH Sai Kiran)
+** pstat header file include
+*/
+#include "pstat.h"
+/* End of code added */
 
 struct {
   struct spinlock lock;
@@ -446,4 +451,54 @@ procdump(void)
     }
     cprintf("\n");
   }
+}
+
+/* 
+  ** getpinfo()
+  ** Displays the details of all running processes 
+  ** Returns 0 if successful, -1 otherwise
+*/
+
+int getpinfo(struct pstat *ps){
+
+  struct proc *p;
+  int i;
+  int j;
+  int flag = 0;
+
+  //Populate the pstat structure with process information
+  for(i = 0, p = ptable.proc; i < NPROC && p < &ptable.proc[NPROC]; i++, p++){
+    //Set inuse or not
+    if(p->state == RUNNING){
+      ps->inuse[i] = 1; //Process is in use
+    }
+    else{
+      ps->inuse[i] = 0; //Process is not in use
+    }
+
+    //Set number of tickets assigned to the process
+    ps->tickets[i] = p->num_tickets;
+    //Set the PID 
+    ps->pid[i] = p->pid;
+    //Set the number of ticks 
+    ps->ticks[i] = p->num_ticks;
+  }
+
+  //Display the process information
+  cprintf("PID      TICKETS     TICKS\n");
+
+  for(j = 0; j < NPROC; j++){
+
+    if(ps->inuse[j] ==  RUNNING){
+      flag = 1;
+      cprintf("%d      %d     %d\n",ps->pid[j],ps->tickets[j],ps->ticks[j]);
+    }
+  }
+
+  //If there are no running processes
+  if(flag == 0){
+    return -1;
+  }
+
+  return 0;
 }

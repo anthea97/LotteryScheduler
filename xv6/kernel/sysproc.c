@@ -102,23 +102,23 @@ sys_settickets(void){
 
 /* 
   ** getpinfo()
-  **  
+  **  Takes 
   ** Returns 0 if successful, -1 otherwise
 */
 int
 sys_getpinfo(void){
 
-  struct proc *p;
+  struct pstat *p;
+  int n;
 
-  acquire(&ptable.lock);
-
-  for(int i = 0; i < NPROC; i++){
-    //if process is unused
-      //Set pids[i]
-      //Set ticks[i]
-      //Set tickets[i]
-    }
+  if(argptr(1, &p, n) < 0){
+    return -1;
   }
+
+  return getpinfo(&p);
+
+ 
+}
 
 
 /* End of code added */
