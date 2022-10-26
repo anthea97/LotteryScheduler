@@ -78,7 +78,7 @@ struct proc {
   ** num_tickets - to keep track of how many tickets a process has
   ** num_ticks - 
   */
-  int num_tickets;            // Number of tickets for this process
+  long num_tickets;            // Number of tickets for this process
   int num_ticks;              // Number of times the process has been scheduled since creation
   /* End of code added */
 };

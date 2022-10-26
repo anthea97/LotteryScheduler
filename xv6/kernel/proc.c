@@ -285,8 +285,8 @@ scheduler(void)
     /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
     ** Code for Lottery Scheduler
     */
-    int total_tickets = 0;
-    int counter = 0;
+    long total_tickets = 0;
+    long counter = 0;
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
@@ -294,7 +294,7 @@ scheduler(void)
       total_tickets += p->num_tickets;
     }
 
-    int winning_ticket = next_random() % total_tickets;
+    long winning_ticket = next_random() % total_tickets;
     
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
