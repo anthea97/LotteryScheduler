@@ -116,17 +116,14 @@ sys_settickets(void){
 */
 int
 sys_getpinfo(void){
-
   struct pstat *p;
   int n;
 
-  if(argptr(1, &p, n) < 0){
+  if(argptr(0, (void*)&p, n) < 0){
     return -1;
   }
 
   return getpinfo(&p);
-
- 
 }
 
 
