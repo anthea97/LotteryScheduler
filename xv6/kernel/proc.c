@@ -279,14 +279,14 @@ scheduler(void)
   for(;;){
     // Enable interrupts on this processor.
     sti();
+    int total_tickets = 0;
+    long counter = 0;    
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
     /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
     ** Code for Lottery Scheduler
     */
-    long total_tickets = 0;
-    long counter = 0;
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
@@ -294,7 +294,7 @@ scheduler(void)
       total_tickets += p->num_tickets;
     }
 
-    long winning_ticket = next_random() % total_tickets;
+    int winning_ticket = next_random() % total_tickets;
     
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
