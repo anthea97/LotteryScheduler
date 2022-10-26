@@ -124,7 +124,7 @@ sys_getpinfo(void){
     return -1;
   }
 
-  return getpinfo(&p);
+  return getpinfo(p);
 }
 
 
