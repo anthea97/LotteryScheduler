@@ -88,3 +88,48 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
+  ** settickets()
+  ** Allocates tickets to the process
+  ** Returns 0 if tickets successfully allocated
+  ** Returns -1 otherwise
+*/
+int 
+sys_settickets(void){
+  int tickets;
+
+  if(argint(0, &tickets) < 0)
+    return -1;
+
+  if(tickets < 1 || tickets > MAX_TICKETS)
+    return -1;
+
+  proc->num_tickets = tickets;
+  return 0;
+}
+
+/* 
+  ** getpinfo()
+  **  Takes 
+  ** Returns 0 if successful, -1 otherwise
+*/
+int
+sys_getpinfo(void){
+
+  struct pstat *p;
+  int n;
+
+  if(argptr(1, &p, n) < 0){
+    return -1;
+  }
+
+  return getpinfo(&p);
+
+ 
+}
+
+
+/* End of code added */
+
+

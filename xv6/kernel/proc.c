@@ -5,6 +5,11 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
+** pstat header file include
+*/
+#include "pstat.h"
+/* End of code added */
 
 struct {
   struct spinlock lock;
@@ -67,6 +72,14 @@ found:
   p->context = (struct context*)sp;
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
+
+  /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
+  ** initialize num_tickets
+  ** initialize num_ticks
+  */
+  p->num_tickets = 1;
+  p->num_ticks = 0;
+  /* End of code added */
 
   return p;
 }
@@ -156,6 +169,11 @@ fork(void)
   pid = np->pid;
   np->state = RUNNABLE;
   safestrcpy(np->name, proc->name, sizeof(proc->name));
+  /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
+  ** Copy parent tickets to child
+  */
+  np->num_tickets = proc->num_tickets;
+  /* End of code added */
   return pid;
 }
 
@@ -263,23 +281,44 @@ scheduler(void)
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
+    /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
+    ** Code for Lottery Scheduler
+    */
+    int total_tickets = 0;
+    int counter = 0;
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
 
-      // Switch to chosen process.  It is the process's job
-      // to release ptable.lock and then reacquire it
-      // before jumping back to us.
-      proc = p;
-      switchuvm(p);
-      p->state = RUNNING;
-      swtch(&cpu->scheduler, proc->context);
-      switchkvm();
-
-      // Process is done running for now.
-      // It should have changed its p->state before coming back.
-      proc = 0;
+      total_tickets += p->num_tickets;
     }
+
+    int winning_ticket = next_random() % total_tickets;
+    
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+      if(p->state != RUNNABLE)
+        continue;
+
+      counter += proc->num_tickets;
+
+      if(counter > winning_ticket){
+        break;
+      }
+    }
+
+    // Switch to chosen process.  It is the process's job
+    // to release ptable.lock and then reacquire it
+    // before jumping back to us.
+  
+    proc = p;
+    switchuvm(p);
+    p->state = RUNNING;
+    swtch(&cpu->scheduler, proc->context);
+    switchkvm();
+    // Process is done running for now.
+    // It should have changed its p->state before coming back.
+    proc = 0;
+    /* End of code added/modified */
     release(&ptable.lock);
 
   }
@@ -301,6 +340,13 @@ sched(void)
   if(readeflags()&FL_IF)
     panic("sched interruptible");
   intena = cpu->intena;
+
+  /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
+  ** num_ticks incremented each time slice
+  */
+  proc->num_ticks += 1;
+  /* End of code added */
+
   swtch(&proc->context, cpu->scheduler);
   cpu->intena = intena;
 }
@@ -443,4 +489,95 @@ procdump(void)
   }
 }
 
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran) */
 
+/* 
+** getpinfo()
+** - Populates the pstat strcuture
+** - Display information about all running processes
+*/
+int getpinfo(struct pstat *ps){
+
+  struct proc *p;
+  int i;
+  int j;
+  int flag = 0;
+
+  //Populate the pstat structure with process information
+  for(i = 0, p = ptable.proc; i < NPROC && p < &ptable.proc[NPROC]; i++, p++){
+    //Set inuse or not
+    if(p->state == RUNNING){
+      ps->inuse[i] = 1; //Process is in use
+    }
+    else{
+      ps->inuse[i] = 0; //Process is not in use
+    }
+
+    //Set number of tickets assigned to the process
+    ps->tickets[i] = p->num_tickets;
+    //Set the PID 
+    ps->pid[i] = p->pid;
+    //Set the number of ticks 
+    ps->ticks[i] = p->num_ticks;
+  }
+
+  //Display the process information
+  cprintf("PID      TICKETS     TICKS\n");
+
+  for(j = 0; j < NPROC; j++){
+    if(ps->inuse[j] == RUNNING){
+      flag = 1;
+      cprintf("%d      %d     %d\n",ps->pid[j],ps->tickets[j],ps->ticks[j]);
+    }
+  }
+
+  //If there are no running processes
+  if(flag == 0){
+    return -1;
+  }
+
+  return 0;
+}
+
+/* 
+** Random Number Generator (Park-Miller)
+** Generates a random number for the scheduler
+*/
+unsigned lcg_parkmiller(unsigned *state)
+{
+    const unsigned N = 0x7fffffff;
+    const unsigned G = 48271u;
+
+    /*  
+        Indirectly compute state*G%N.
+
+        Let:
+          div = state/(N/G)
+          rem = state%(N/G)
+
+        Then:
+          rem + div*(N/G) == state
+          rem*G + div*(N/G)*G == state*G
+
+        Now:
+          div*(N/G)*G == div*(N - N%G) === -div*(N%G)  (mod N)
+
+        Therefore:
+          rem*G - div*(N%G) === state*G  (mod N)
+
+        Add N if necessary so that the result is between 1 and N-1.
+    */
+    unsigned div = *state / (N / G);  /* max : 2,147,483,646 / 44,488 = 48,271 */
+    unsigned rem = *state % (N / G);  /* max : 2,147,483,646 % 44,488 = 44,487 */
+
+    unsigned a = rem * G;        /* max : 44,487 * 48,271 = 2,147,431,977 */
+    unsigned b = div * (N % G);  /* max : 48,271 * 3,399 = 164,073,129 */
+
+    return *state = (a > b) ? (a - b) : (a + (N - b));
+}
+
+unsigned next_random() {
+    return lcg_parkmiller(&random_seed);
+}
+
+/* End of code added */

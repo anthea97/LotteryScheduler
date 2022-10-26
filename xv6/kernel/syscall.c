@@ -103,6 +103,14 @@ static int (*syscalls[])(void) = {
 [SYS_wait]    sys_wait,
 [SYS_write]   sys_write,
 [SYS_uptime]  sys_uptime,
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
+** settickets system call
+** getpinfo system call
+*/
+[SYS_settickets] sys_settickets,
+[SYS_getpinfo]   sys_getpinfo,
+/* End of code added */
+
 };
 
 // Called on a syscall trap. Checks that the syscall number (passed via eax)
