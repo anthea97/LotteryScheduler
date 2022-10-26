@@ -119,7 +119,7 @@ void            yield(void);
 unsigned        lcg_parkmiller(unsigned *state);
 unsigned        next_random();
 /* getpinfo */
-//int             getpinfo(struct pstat *ps);
+int             getpinfo(void);
 /* End of Code Added */
 
 // swtch.S
