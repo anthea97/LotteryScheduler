@@ -118,6 +118,8 @@ void            yield(void);
 ** Random Number Generator */
 unsigned        lcg_parkmiller(unsigned *state);
 unsigned        next_random();
+/* getpinfo */
+int             getpinfo(struct pstat *ps);
 /* End of Code Added */
 
 // swtch.S
