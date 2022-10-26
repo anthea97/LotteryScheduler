@@ -123,7 +123,7 @@ sys_getpinfo(void){
     return -1;
   }
 
-  return getpinfo(argptr(0, (void*)&p, n));
+  return getpinfo(p);
 }
 
 
