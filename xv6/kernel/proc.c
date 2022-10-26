@@ -6,9 +6,10 @@
 #include "proc.h"
 #include "spinlock.h"
 /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
-** pstat header file include
+** pstat header file include, random_seed for random number generator
 */
 #include "pstat.h"
+static unsigned random_seed = 1;
 /* End of code added */
 
 struct {

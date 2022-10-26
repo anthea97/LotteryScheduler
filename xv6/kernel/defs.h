@@ -1,10 +1,9 @@
 #ifndef _DEFS_H_
 #define _DEFS_H_
 /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
-** Random Number Generator
+** Max tickets definition
 */
 #define MAX_TICKETS 1000000
-static unsigned random_seed = 1;
 /* End of code added */
 
 struct buf;
