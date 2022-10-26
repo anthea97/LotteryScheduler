@@ -3,6 +3,7 @@
 /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
 ** Max tickets definition
 */
+#include "pstat.h"
 #define MAX_TICKETS 1000000
 /* End of code added */
 
