@@ -279,28 +279,49 @@ scheduler(void)
   for(;;){
     // Enable interrupts on this processor.
     sti();
-    //int total_tickets = 0;
-    //long counter = 0;
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
+    /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
+    ** Code for Lottery Scheduler
+    */
+    int total_tickets = 0;
+    long counter = 0;
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
 
-      cprintf("%s WON\n", p->name);
-      // Switch to chosen process.  It is the process's job
-      // to release ptable.lock and then reacquire it
-      // before jumping back to us.
-      proc = p;
-      switchuvm(p);
-      p->state = RUNNING;
-      swtch(&cpu->scheduler, proc->context);
-      switchkvm();
+      cprintf("%s has %d tickets: ", p->name, p->num_tickets);
+      total_tickets += p->num_tickets;
+    }
+    cprintf("Total tickets: %d\n", total_tickets);
 
-      // Process is done running for now.
-      // It should have changed its p->state before coming back.
-      proc = 0;
+    int winning_ticket = next_random() % total_tickets;
+    cprintf("Winning ticket %d\n", winning_ticket);
+
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+      if(p->state != RUNNABLE)
+        continue;
+
+      counter += p->num_tickets;
+
+      if(counter > winning_ticket){
+        cprintf("%s WON\n", p->name);
+        // Switch to chosen process.  It is the process's job
+        // to release ptable.lock and then reacquire it
+        // before jumping back to us.
+
+        proc = p;
+        switchuvm(p);
+        p->state = RUNNING;
+        swtch(&cpu->scheduler, proc->context);
+        switchkvm();
+        // Process is done running for now.
+        // It should have changed its p->state before coming back.
+        proc = 0;
+        /* End of code added/modified */
+        break;
+      }
     }
 
     release(&ptable.lock);
