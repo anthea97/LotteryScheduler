@@ -506,11 +506,13 @@ procdump(void)
 ** - Display information about all running processes
 */
 int getpinfo(struct pstat *ps){
+  if(ps == NULL) {
+    return -1;
+  }
 
   struct proc *p;
   int i;
   int j;
-  int flag = 0;
 
   //Populate the pstat structure with process information
   for(i = 0, p = ptable.proc; i < NPROC && p < &ptable.proc[NPROC]; i++, p++){
@@ -531,18 +533,12 @@ int getpinfo(struct pstat *ps){
   }
 
   //Display the process information
-  cprintf("PID      TICKETS     TICKS\n");
+  cprintf("PID\tTICKETS\tTICKS\n");
 
   for(j = 0; j < NPROC; j++){
     if(ps->inuse[j] == RUNNING){
-      flag = 1;
-      cprintf("%d      %d     %d\n",ps->pid[j],ps->tickets[j],ps->ticks[j]);
+      cprintf("%d\t%d\t%d\n",ps->pid[j],ps->tickets[j],ps->ticks[j]);
     }
-  }
-
-  //If there are no running processes
-  if(flag == 0){
-    return -1;
   }
 
   return 0;
