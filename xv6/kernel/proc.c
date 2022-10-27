@@ -302,6 +302,7 @@ scheduler(void)
         continue;
 
       counter += p->num_tickets;
+      cprintf("%s has %d tickets counter %d\n", p->name, p->num_tickets, counter);
 
       if(counter > winning_ticket){
         break;
