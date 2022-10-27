@@ -299,7 +299,7 @@ scheduler(void)
     if(total_tickets == 0) {
       continue;
     }
-    cprintf("Total tickets: %d\n", total_tickets);
+    // cprintf("Total tickets: %d\n", total_tickets);
     int winning_ticket = next_random() % total_tickets;
     // cprintf("Winning ticket %d\n", winning_ticket);
 
