@@ -536,7 +536,7 @@ int getpinfo(struct pstat *ps){
   cprintf("PID\tTICKETS\tTICKS\n");
 
   for(j = 0; j < NPROC; j++){
-    if(ps->inuse[j] == RUNNING){
+    if(ps->inuse[j] == 1){
       cprintf("%d\t%d\t%d\n",ps->pid[j],ps->tickets[j],ps->ticks[j]);
     }
   }
