@@ -306,25 +306,24 @@ scheduler(void)
 
       if(counter > winning_ticket){
         cprintf("%s WON\n", p->name);
+        // Switch to chosen process.  It is the process's job
+        // to release ptable.lock and then reacquire it
+        // before jumping back to us.
+
+        proc = p;
+        switchuvm(p);
+        p->state = RUNNING;
+        swtch(&cpu->scheduler, proc->context);
+        switchkvm();
+        // Process is done running for now.
+        // It should have changed its p->state before coming back.
+        proc = 0;
+        /* End of code added/modified */
         break;
       }
     }
 
-    // Switch to chosen process.  It is the process's job
-    // to release ptable.lock and then reacquire it
-    // before jumping back to us.
-
-    proc = p;
-    switchuvm(p);
-    p->state = RUNNING;
-    swtch(&cpu->scheduler, proc->context);
-    switchkvm();
-    // Process is done running for now.
-    // It should have changed its p->state before coming back.
-    proc = 0;
-    /* End of code added/modified */
     release(&ptable.lock);
-
   }
 }
 
