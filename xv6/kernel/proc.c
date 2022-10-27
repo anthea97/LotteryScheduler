@@ -297,6 +297,9 @@ scheduler(void)
     release(&ptable.lock);
     cprintf("Total tickets: %d\n", total_tickets);
 
+    if(total_tickets == 0) {
+      continue;
+    }
     int winning_ticket = next_random() % total_tickets;
     cprintf("Winning ticket %d\n", winning_ticket);
 
