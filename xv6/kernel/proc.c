@@ -59,11 +59,11 @@ found:
     return 0;
   }
   sp = p->kstack + KSTACKSIZE;
-  
+
   // Leave room for trap frame.
   sp -= sizeof *p->tf;
   p->tf = (struct trapframe*)sp;
-  
+
   // Set up new context to start executing at forkret,
   // which returns to trapret.
   sp -= 4;
@@ -91,7 +91,7 @@ userinit(void)
 {
   struct proc *p;
   extern char _binary_initcode_start[], _binary_initcode_size[];
-  
+
   p = allocproc();
   acquire(&ptable.lock);
   initproc = p;
@@ -121,7 +121,7 @@ int
 growproc(int n)
 {
   uint sz;
-  
+
   sz = proc->sz;
   if(n > 0){
     if((sz = allocuvm(proc->pgdir, sz, sz + n)) == 0)
@@ -166,7 +166,7 @@ fork(void)
     if(proc->ofile[i])
       np->ofile[i] = filedup(proc->ofile[i]);
   np->cwd = idup(proc->cwd);
- 
+
   pid = np->pid;
   np->state = RUNNABLE;
   safestrcpy(np->name, proc->name, sizeof(proc->name));
@@ -280,7 +280,7 @@ scheduler(void)
     // Enable interrupts on this processor.
     sti();
     int total_tickets = 0;
-    long counter = 0;    
+    long counter = 0;
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
@@ -305,6 +305,7 @@ scheduler(void)
       cprintf("%s has %d tickets counter %d\n", p->name, p->num_tickets, counter);
 
       if(counter > winning_ticket){
+        cprintf("%s WON\n", p->name);
         break;
       }
     }
@@ -312,7 +313,7 @@ scheduler(void)
     // Switch to chosen process.  It is the process's job
     // to release ptable.lock and then reacquire it
     // before jumping back to us.
-  
+
     proc = p;
     switchuvm(p);
     p->state = RUNNING;
@@ -371,7 +372,7 @@ forkret(void)
 {
   // Still holding ptable.lock from scheduler.
   release(&ptable.lock);
-  
+
   // Return to "caller", actually trapret (see allocproc).
 }
 
@@ -474,7 +475,7 @@ procdump(void)
   struct proc *p;
   char *state;
   uint pc[10];
-  
+
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
     if(p->state == UNUSED)
       continue;
@@ -551,7 +552,7 @@ unsigned lcg_parkmiller(unsigned *state)
     const unsigned N = 0x7fffffff;
     const unsigned G = 48271u;
 
-    /*  
+    /*
         Indirectly compute state*G%N.
 
         Let:
