@@ -291,7 +291,7 @@ scheduler(void)
       if(p->state != RUNNABLE)
         continue;
 
-      cprintf("%s has %d tickets: ", p->name, p->num_tickets);
+      // cprintf("%s has %d tickets: ", p->name, p->num_tickets);
       total_tickets += p->num_tickets;
     }
     release(&ptable.lock);
@@ -301,7 +301,7 @@ scheduler(void)
     }
     cprintf("Total tickets: %d\n", total_tickets);
     int winning_ticket = next_random() % total_tickets;
-    cprintf("Winning ticket %d\n", winning_ticket);
+    // cprintf("Winning ticket %d\n", winning_ticket);
 
     acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
@@ -311,7 +311,7 @@ scheduler(void)
       counter += p->num_tickets;
 
       if(counter > winning_ticket){
-        cprintf("%s WON\n", p->name);
+        // cprintf("%s WON\n", p->name);
         // Switch to chosen process.  It is the process's job
         // to release ptable.lock and then reacquire it
         // before jumping back to us.
