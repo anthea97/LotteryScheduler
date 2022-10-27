@@ -295,7 +295,8 @@ scheduler(void)
     }
 
     int winning_ticket = next_random() % total_tickets;
-    
+    cprintf("Winning ticket %d\n", winning_ticket);
+
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
