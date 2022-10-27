@@ -281,12 +281,12 @@ scheduler(void)
     sti();
 
     // Loop over process table looking for process to run.
-    acquire(&ptable.lock);
     /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
     ** Code for Lottery Scheduler
     */
     int total_tickets = 0;
     long counter = 0;
+    acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
@@ -294,11 +294,13 @@ scheduler(void)
       cprintf("%s has %d tickets: ", p->name, p->num_tickets);
       total_tickets += p->num_tickets;
     }
+    release(&ptable.lock);
     cprintf("Total tickets: %d\n", total_tickets);
 
     int winning_ticket = next_random() % total_tickets;
     cprintf("Winning ticket %d\n", winning_ticket);
 
+    acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
@@ -323,8 +325,8 @@ scheduler(void)
         break;
       }
     }
-
     release(&ptable.lock);
+
   }
 }
 
