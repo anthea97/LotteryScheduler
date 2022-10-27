@@ -291,8 +291,10 @@ scheduler(void)
       if(p->state != RUNNABLE)
         continue;
 
+      cprintf("%s has %d tickets: ", p->name, p->num_tickets);
       total_tickets += p->num_tickets;
     }
+    cprintf("Total tickets: %d\n", total_tickets);
 
     int winning_ticket = next_random() % total_tickets;
     cprintf("Winning ticket %d\n", winning_ticket);
@@ -302,7 +304,6 @@ scheduler(void)
         continue;
 
       counter += p->num_tickets;
-      cprintf("%s has %d tickets counter %d\n", p->name, p->num_tickets, counter);
 
       if(counter > winning_ticket){
         cprintf("%s WON\n", p->name);
