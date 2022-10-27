@@ -279,8 +279,8 @@ scheduler(void)
   for(;;){
     // Enable interrupts on this processor.
     sti();
-    int total_tickets = 0;
-    long counter = 0;
+    //int total_tickets = 0;
+    //long counter = 0;
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
