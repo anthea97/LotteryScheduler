@@ -300,7 +300,7 @@ scheduler(void)
       if(p->state != RUNNABLE)
         continue;
 
-      counter += proc->num_tickets;
+      counter += p->num_tickets;
 
       if(counter > winning_ticket){
         break;
