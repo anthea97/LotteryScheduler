@@ -533,14 +533,14 @@ int getpinfo(struct pstat *ps){
   }
 
   //Display the process information
-  cprintf("PID\tTICKETS\tTICKS\n");
+  /*cprintf("PID\tTICKETS\tTICKS\n");
 
   for(j = 0; j < NPROC; j++){
     if(ps->inuse[j] == 1){
       cprintf("%d\t%d\t%d\n",ps->pid[j],ps->tickets[j],ps->ticks[j]);
     }
   }
-
+*/
   return 0;
 }
 
