@@ -12,6 +12,7 @@ main(int argc, char *argv[])
 {
    struct pstat st;
 
+   printf("%d", getpinfo(&st));
    check(getpinfo(&st) == 0, "getpinfo");
    check(getpinfo(NULL) == -1, "getpinfo with bad pointer");
    check(getpinfo((struct pstat *)1000000) == -1, "getpinfo with bad pointer"); 
