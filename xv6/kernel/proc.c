@@ -531,16 +531,7 @@ int getpinfo(struct pstat *ps){
     //Set the number of ticks 
     ps->ticks[i] = p->num_ticks;
   }
-
-  //Display the process information
-  /*cprintf("PID\tTICKETS\tTICKS\n");
-
-  for(j = 0; j < NPROC; j++){
-    if(ps->inuse[j] == 1){
-      cprintf("%d\t%d\t%d\n",ps->pid[j],ps->tickets[j],ps->ticks[j]);
-    }
-  }
-*/
+  
   return 0;
 }
 
