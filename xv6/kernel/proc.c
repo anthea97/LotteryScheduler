@@ -512,7 +512,7 @@ int getpinfo(struct pstat *ps){
 
   struct proc *p;
   int i;
-  int j;
+  //int j;
 
   //Populate the pstat structure with process information
   for(i = 0, p = ptable.proc; i < NPROC && p < &ptable.proc[NPROC]; i++, p++){
