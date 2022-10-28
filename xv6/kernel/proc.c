@@ -512,9 +512,9 @@ int getpinfo(struct pstat *ps){
 
   struct proc *p;
   int i;
-  //int j;
 
   //Populate the pstat structure with process information
+  acquire(&ptable.lock);
   for(i = 0, p = ptable.proc; i < NPROC && p < &ptable.proc[NPROC]; i++, p++){
     //Set inuse or not
     if(p->state != UNUSED){
@@ -531,7 +531,8 @@ int getpinfo(struct pstat *ps){
     //Set the number of ticks 
     ps->ticks[i] = p->num_ticks;
   }
-  
+  release(&ptable.lock);
+
   return 0;
 }
 
