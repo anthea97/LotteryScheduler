@@ -517,7 +517,7 @@ int getpinfo(struct pstat *ps){
   //Populate the pstat structure with process information
   for(i = 0, p = ptable.proc; i < NPROC && p < &ptable.proc[NPROC]; i++, p++){
     //Set inuse or not
-    if(p->state == RUNNABLE){
+    if(p->state != UNUSED){
       ps->inuse[i] = 1; //Process is in use
     }
     else{
