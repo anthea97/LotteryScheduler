@@ -4,7 +4,7 @@
 ** Max tickets definition
 */
 #include "pstat.h"
-#define MAX_TICKETS 10000000
+#define MAX_TICKETS 100000000
 /* End of code added */
 
 struct buf;
