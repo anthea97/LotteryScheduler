@@ -25,6 +25,10 @@ main(int argc, char *argv[])
     if(pid == 0){
         check(settickets(TICKET_2)==0, "settickets");
        printf(1, "pid: %d\n", pid);
+       yield();
+    }
+    else if(pid == -1){
+        printf(1, "fork error");
     }
 
 
