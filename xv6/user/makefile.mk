@@ -27,9 +27,6 @@ USER_PROGS := \
 	stress_manylow\
 	switch_tickets\
 	wc\
-	p_tres\
-	p_dos\
-	p_uno\
 	graph\
 	zombie
 

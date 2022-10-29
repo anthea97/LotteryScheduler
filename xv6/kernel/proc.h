@@ -76,7 +76,7 @@ struct proc {
   char name[16];               // Process name (debugging)
   /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
   ** num_tickets - to keep track of how many tickets a process has
-  ** num_ticks - 
+  ** num_ticks - To keep track of ticks - how many times a process was scheduled
   */
   int num_tickets;            // Number of tickets for this process
   int num_ticks;              // Number of times the process has been scheduled since creation

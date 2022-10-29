@@ -6,7 +6,8 @@
 #include "proc.h"
 #include "spinlock.h"
 /* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran)
-** pstat header file include, random_seed for random number generator
+** pstat header file include
+** random_seed for random number generator
 */
 #include "pstat.h"
 static unsigned random_seed = 1;
@@ -291,7 +292,6 @@ scheduler(void)
       if(p->state != RUNNABLE)
         continue;
 
-      // cprintf("%s has %d tickets: ", p->name, p->num_tickets);
       total_tickets += p->num_tickets;
     }
     release(&ptable.lock);
@@ -299,9 +299,7 @@ scheduler(void)
     if(total_tickets == 0) {
       continue;
     }
-    // cprintf("Total tickets: %d\n", total_tickets);
     int winning_ticket = next_random() % total_tickets;
-    // cprintf("Winning ticket %d\n", winning_ticket);
 
     acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
@@ -311,7 +309,6 @@ scheduler(void)
       counter += p->num_tickets;
 
       if(counter > winning_ticket){
-        // cprintf("%s WON\n", p->name);
         // Switch to chosen process.  It is the process's job
         // to release ptable.lock and then reacquire it
         // before jumping back to us.
@@ -324,11 +321,12 @@ scheduler(void)
         // Process is done running for now.
         // It should have changed its p->state before coming back.
         proc = 0;
-        /* End of code added/modified */
         break;
       }
     }
     release(&ptable.lock);
+    /* End of code added/modified */
+
 
   }
 }
@@ -502,10 +500,13 @@ procdump(void)
 
 /* 
 ** getpinfo()
-** - Populates the pstat strcuture
-** - Display information about all running processes
+** - Populates the pstat structure
+** - Returns 0 if successful, -1 otherwise
 */
-int getpinfo(struct pstat *ps){
+int 
+getpinfo(struct pstat *ps){
+  
+  //If invalid pointer is passed
   if(ps == NULL) {
     return -1;
   }
@@ -540,7 +541,8 @@ int getpinfo(struct pstat *ps){
 ** Random Number Generator (Park-Miller)
 ** Generates a random number for the scheduler
 */
-unsigned lcg_parkmiller(unsigned *state)
+unsigned 
+lcg_parkmiller(unsigned *state)
 {
     const unsigned N = 0x7fffffff;
     const unsigned G = 48271u;
@@ -573,7 +575,8 @@ unsigned lcg_parkmiller(unsigned *state)
     return *state = (a > b) ? (a - b) : (a + (N - b));
 }
 
-unsigned next_random() {
+unsigned 
+next_random() {
     return lcg_parkmiller(&random_seed);
 }
 

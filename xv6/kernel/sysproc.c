@@ -111,8 +111,8 @@ sys_settickets(void){
 }
 
 /* 
-  ** getpinfo()
-  **  Takes 
+  ** sys_getpinfo()
+  ** Calls getpinfo() to get data about all processes 
   ** Returns 0 if successful, -1 otherwise
 */
 int
