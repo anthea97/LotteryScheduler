@@ -27,6 +27,7 @@ USER_PROGS := \
 	stress_manylow\
 	switch_tickets\
 	wc\
+	graph\
 	zombie
 
 USER_PROGS := $(addprefix user/, $(USER_PROGS))
