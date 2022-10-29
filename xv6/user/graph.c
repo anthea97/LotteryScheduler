@@ -31,6 +31,8 @@ main(int argc, char *argv[])
     struct pstat st;
     int i = 0;  
     int pid[NPROC];
+     
+    check(settickets(10000) == 0, "settickets");
 
     while(i < PROC){
         pid[i] = fork();
@@ -40,10 +42,17 @@ main(int argc, char *argv[])
             spin();
             exit();
         }
-
+        else if (pid[i] == -1){
+	    printf(1, "Fork Failed");
+	}
+//	else{
+             
+//	  wait();
+//	}
         i++;
 
     }
+    sleep(500);
 
     check(getpinfo(&st) == 0, "getpinfo");
     printf(1, "\n**** PInfo ****\n");
@@ -53,7 +62,7 @@ main(int argc, char *argv[])
             printf(1, "pid: %d tickets: %d ticks: %d\n", st.pid[i], st.tickets[i], st.ticks[i]);
         }
     }
-
+    wait();
     exit();
 
 }
