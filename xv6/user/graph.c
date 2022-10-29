@@ -17,11 +17,11 @@ void spin()
   int k = 0;
 	for(i = 0; i < 50; ++i)
 	{
-		for(j = 0; j < 10000000; ++j)
+	    for(j = 0; j < 10000000; ++j)
 		{
-      k = j % 10;
-      k = k + 1;
-    }
+            k = j % 10;
+            k = k + 1;
+        }
 	}
 }
 
@@ -43,15 +43,12 @@ main(int argc, char *argv[])
             exit();
         }
         else if (pid[i] == -1){
-	    printf(1, "Fork Failed");
-	}
-//	else{
-             
-//	  wait();
-//	}
+	        printf(1, "Fork Failed");
+	    }
         i++;
 
     }
+
     sleep(500);
 
     check(getpinfo(&st) == 0, "getpinfo");
@@ -62,7 +59,7 @@ main(int argc, char *argv[])
             printf(1, "pid: %d tickets: %d ticks: %d\n", st.pid[i], st.tickets[i], st.ticks[i]);
         }
     }
-    //wait();
+
     while (wait() > 0);
     exit();
 
