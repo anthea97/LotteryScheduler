@@ -24,11 +24,15 @@ main(int argc, char *argv[])
 
     if(pid == 0){
         check(settickets(TICKET_2)==0, "settickets");
-       printf(1, "pid: %d\n", pid);
-       yield();
+       printf(1, "I am child\n");
+       printf(1, "Child pid: %d\n", pid);
     }
     else if(pid == -1){
-        printf(1, "fork error");
+        printf(1, "fork error\n");
+    }
+    else{
+        wait();
+        printf(1, "I am parent\n");
     }
 
 
