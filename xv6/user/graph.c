@@ -14,11 +14,13 @@ main(int argc, char *argv[])
     int i;  
 
     check(getpinfo(&st) == 0, "getpinfo");
-    
+
     for(i = 0; i < NPROC; i++) {
         if (st.inuse[i]) {
             printf(1, "pid: %d tickets: %d ticks: %d\n", st.pid[i], st.tickets[i], st.ticks[i]);
         }
     }
+
+    exit();
 
 }
