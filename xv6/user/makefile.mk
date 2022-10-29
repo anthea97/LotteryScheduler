@@ -30,6 +30,7 @@ USER_PROGS := \
 	p_tres\
 	p_dos\
 	p_uno\
+	graph\
 	zombie
 
 USER_PROGS := $(addprefix user/, $(USER_PROGS))
