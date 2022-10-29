@@ -62,7 +62,8 @@ main(int argc, char *argv[])
             printf(1, "pid: %d tickets: %d ticks: %d\n", st.pid[i], st.tickets[i], st.ticks[i]);
         }
     }
-    wait();
+    //wait();
+    while (wait() > 0);
     exit();
 
 }
