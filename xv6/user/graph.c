@@ -8,7 +8,7 @@
    exit();}
 
 #define PROC 3
-#define TICKET_MULT 1000
+#define TICKET_MULT 10000
 
 void spin()
 {
@@ -32,7 +32,7 @@ main(int argc, char *argv[])
     int i = 0;  
     int pid[NPROC];
      
-    check(settickets(1) == 0, "settickets");
+    check(settickets(TICKET_MULT) == 0, "settickets");
 
     while(i < PROC){
         pid[i] = fork();
