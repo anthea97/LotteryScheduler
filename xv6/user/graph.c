@@ -8,7 +8,7 @@
    exit();}
 
 #define PROC 3
-#define TICKET_MULT 10000
+#define TICKET_MULT 1000
 
 void spin()
 {
