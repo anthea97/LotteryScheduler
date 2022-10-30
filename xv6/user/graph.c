@@ -1,3 +1,11 @@
+/* The following code is added by axa210122(Anthea Abreo), hxp220011(P H Sai Kiran) */
+
+/*
+** graph.c
+** The graph should show the number of time slices a set of three processes receives over time,
+where the processes have a 3:2:1 ratio of tickets (e.g., process A might have 30 tickets,
+process B 20, and process C 10).
+*/
 #include "types.h"
 #include "stat.h"
 #include "user.h"
@@ -62,3 +70,4 @@ main(int argc, char *argv[])
     while (wait() > 0);
     exit();
 }
+/* End of code added */
