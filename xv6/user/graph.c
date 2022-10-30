@@ -32,7 +32,7 @@ main(int argc, char *argv[])
     int i = 0;  
     int pid[NPROC];
      
-    check(settickets(10000) == 0, "settickets");
+    check(settickets(1) == 0, "settickets");
 
     while(i < PROC){
         pid[i] = fork();
@@ -44,9 +44,8 @@ main(int argc, char *argv[])
         }
         else if (pid[i] == -1){
 	        printf(1, "Fork Failed");
-	    }
+	      }
         i++;
-
     }
 
     sleep(500);
@@ -62,5 +61,4 @@ main(int argc, char *argv[])
 
     while (wait() > 0);
     exit();
-
 }
